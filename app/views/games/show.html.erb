@@ -3,8 +3,9 @@
     <div class="attempt" id="<%= @attempt.id %>" data-attempts="<%= @attempt.words %>">
       <% @grid.each do |word| %>
         <div class="word d-flex align-items-center justify-content-between <%= word.join.length.zero? ? 'empty' : 'filled' %>">
-          <% word.each do |letter| %>
-            <div class="letter my-1 mx-1 d-flex align-items-center justify-content-around">
+          <% word.each_with_index do |letter, index| %>
+            <div class="letter my-1 mx-1 d-flex align-items-center justify-content-around"
+              style="<%= letter_background(letter, index, @game.word) %>">
               <%= letter.upcase %>
             </div>
           <% end %>
@@ -15,7 +16,7 @@
 </div>
 <div class="d-none">
   <%= simple_form_for @attempt do |f| %>
-    <%= f.input :words %>
+    <%= f.input :words, as: :hidden %>
   <% end %>
 </div>
 
