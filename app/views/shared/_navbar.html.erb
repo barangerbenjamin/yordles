@@ -11,9 +11,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "Home", "#", class: "nav-link" %>
-        </li>
+        <% if params[:controller] == 'games' && params[:action] == 'show' %>
+          <li class="nav-item active">
+            <%= link_to "Next", game_path((params[:id].to_i + 1)), class: "nav-link" %>
+          </li>
+        <% end %>
         <li class="nav-item">
           <%= link_to "Messages", "#", class: "nav-link" %>
         </li>

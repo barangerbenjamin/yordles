@@ -5,9 +5,11 @@ class GamesController < ApplicationController
     empty = 6 - @attempt.words.size
     @grid = @attempt.words.map(&:chars) + [["", "", "", "", ""]] * empty
 
+    flash[:notice] = "You earned #{@attempt.points} points!" if @attempt.finished
+
     @game_state = {
-      finished: @attempt.words.include?(@game.word) || @attempt.words.size >= 6,
-      solved: @attempt.words.include?(@game.word)
+      finished: @attempt.finished,
+      solved: @attempt.solved
     }
   end
 end

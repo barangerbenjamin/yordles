@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 2022_01_15_114509) do
     t.bigint "game_id", null: false
     t.bigint "user_id", null: false
     t.text "words", default: [], array: true
+    t.integer "points", default: 0
+    t.boolean "finished", default: false
+    t.boolean "solved", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_id"], name: "index_attempts_on_game_id"
