@@ -1,6 +1,6 @@
 <div class="container d-flex flex-column align-items-center justify-content-around">
   <div class="row d-flex align-items-center justify-content-around">
-    <div class="attempt" id="<%= @attempt.id %>" data-attempts="<%= @attempt.words %>">
+    <div class="attempt" id="<%= @attempt.id %>" data-attempts="<%= @attempt.words %>" <%= 'data-finished="true"' if @game_state[:finished] %>>
       <div class="game-state text-center">
         <% if @game_state[:finished] %>
           <% if @game_state[:sovled] %>
@@ -32,32 +32,34 @@
 </div>
 
 <script>
-  document.addEventListener("keyup", (event) => {
-    let emptyWord = document.querySelector(".empty");
-    let wordLetters = Array.from(emptyWord.children).map(letter => letter.innerText);
-    let index = wordLetters.indexOf("");
-    let temporaryLetters = wordLetters.filter(w => w !== "")
-    if ((event.keyCode >= 65 && event.keyCode <= 90) || event.key === "Backspace" ) {
-      if (event.key === "Backspace") {
-        if (temporaryLetters.length > 0) {
-          let indexLastTypedLetter = temporaryLetters.length - 1
-          emptyWord.children[indexLastTypedLetter].style.backgroundColor = 'grey'
-          emptyWord.children[indexLastTypedLetter].innerText = "";
+  if(!document.querySelector(".attempt").dataset.finished) {
+    document.addEventListener("keyup", (event) => {
+      let emptyWord = document.querySelector(".empty");
+      let wordLetters = Array.from(emptyWord.children).map(letter => letter.innerText);
+      let index = wordLetters.indexOf("");
+      let temporaryLetters = wordLetters.filter(w => w !== "")
+      if ((event.keyCode >= 65 && event.keyCode <= 90) || event.key === "Backspace" ) {
+        if (event.key === "Backspace") {
+          if (temporaryLetters.length > 0) {
+            let indexLastTypedLetter = temporaryLetters.length - 1
+            emptyWord.children[indexLastTypedLetter].style.backgroundColor = 'grey'
+            emptyWord.children[indexLastTypedLetter].innerText = "";
+          }
+        } else {
+          if (index >= 0) {
+            emptyWord.children[index].style.backgroundColor = '#3a3a3c'
+            emptyWord.children[index].innerText = event.key.toUpperCase();
+          }
         }
-      } else {
-        if (index >= 0) {
-          emptyWord.children[index].style.backgroundColor = '#3a3a3c'
-          emptyWord.children[index].innerText = event.key.toUpperCase();
-        }
+      } else if (event.key === "Enter" && temporaryLetters.length === 5) {
+        let form = document.querySelector("form");
+        let input = document.querySelector("#attempt_words");
+        let existingAttempts = JSON.parse(document.querySelector(".attempt").dataset.attempts);
+        let attempt = Array.from(emptyWord.children).map(letter => letter.innerText).filter(w => w !== "").join('')
+        existingAttempts.push(attempt);
+        input.value = existingAttempts;
+        form.submit()
       }
-    } else if (event.key === "Enter" && temporaryLetters.length === 5) {
-      let form = document.querySelector("form");
-      let input = document.querySelector("#attempt_words");
-      let existingAttempts = JSON.parse(document.querySelector(".attempt").dataset.attempts);
-      let attempt = Array.from(emptyWord.children).map(letter => letter.innerText).filter(w => w !== "").join('')
-      existingAttempts.push(attempt);
-      input.value = existingAttempts;
-      form.submit()
-    }
-  })
+    })
+  }
 </script>
