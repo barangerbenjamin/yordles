@@ -1,2 +1,14 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container d-flex flex-column align-items-center justify-content-around">
+  <div class="row d-flex align-items-center justify-content-around">
+    <div>
+      <% (1..6).to_a.each do |row| %>
+        <div class="d-flex align-items-center justify-content-between">
+          <% (1..5).to_a.each do |col| %>
+            <div class="box my-1 mx-1">
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -11,3 +11,18 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+
+.box {
+  height: 50px;
+  width: 50px;
+  background-color: #3a3a3c;
+}
+
+.container {
+  min-height: calc(100vh - 70px);
+}
+
+body {
+  background-color: #121213;
+}
