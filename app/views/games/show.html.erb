@@ -41,10 +41,12 @@
       if (event.key === "Backspace") {
         if (temporaryLetters.length > 0) {
           let indexLastTypedLetter = temporaryLetters.length - 1
+          emptyWord.children[indexLastTypedLetter].style.backgroundColor = 'grey'
           emptyWord.children[indexLastTypedLetter].innerText = "";
         }
       } else {
         if (index >= 0) {
+          emptyWord.children[index].style.backgroundColor = '#3a3a3c'
           emptyWord.children[index].innerText = event.key.toUpperCase();
         }
       }
