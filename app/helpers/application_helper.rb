@@ -4,6 +4,12 @@ module ApplicationHelper
 
     return 'background-color: #ffe156' if word.include?(letter) && letter != ''
 
-    return 'background-color: #3a3a3c'
+    return 'background-color: #3a3a3c' if letter != ''
+
+    'background-color: grey'
+  end
+
+  def game_state(attempts, word)
+
   end
 end

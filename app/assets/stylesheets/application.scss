@@ -14,8 +14,8 @@
 
 
 .letter {
-  height: 50px;
-  width: 50px;
+  height: 64px;
+  width: 64px;
   background-color: #3a3a3c;
   color: white;
   font-weight: 900;
@@ -27,6 +27,17 @@
   min-height: calc(100vh - 70px);
 }
 
+.game-state {
+  vertical-align: middle;
+  line-height: 64px;
+  background-color: #3a3a3c;
+  color: white;
+  height: 64px;
+  font-weight: 900;
+  font-size: 30px;
+  border-radius: 3px;
+  margin: 4px;
+}
 // body {
 //   background-color: #121213;
 // }

@@ -1,6 +1,17 @@
 <div class="container d-flex flex-column align-items-center justify-content-around">
   <div class="row d-flex align-items-center justify-content-around">
     <div class="attempt" id="<%= @attempt.id %>" data-attempts="<%= @attempt.words %>">
+      <div class="game-state text-center">
+        <% if @game_state[:finished] %>
+          <% if @game_state[:sovled] %>
+            Solved
+          <% else %>
+            Game Finished
+          <% end %>
+        <% else %>
+          Guess the word
+        <% end %>
+      </div>
       <% @grid.each do |word| %>
         <div class="word d-flex align-items-center justify-content-between <%= word.join.length.zero? ? 'empty' : 'filled' %>">
           <% word.each_with_index do |letter, index| %>
