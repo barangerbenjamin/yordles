@@ -1,0 +1,49 @@
+<div class="container d-flex flex-column align-items-center justify-content-around">
+  <div class="row d-flex align-items-center justify-content-around">
+    <div class="attempt" id="<%= @attempt.id %>" data-attempts="<%= @attempt.words %>">
+      <% @grid.each do |word| %>
+        <div class="word d-flex align-items-center justify-content-between <%= word.join.length.zero? ? 'empty' : 'filled' %>">
+          <% word.each do |letter| %>
+            <div class="letter my-1 mx-1 d-flex align-items-center justify-content-around">
+              <%= letter.upcase %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="d-none">
+  <%= simple_form_for @attempt do |f| %>
+    <%= f.input :words %>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener("keyup", (event) => {
+    let emptyWord = document.querySelector(".empty");
+    let wordLetters = Array.from(emptyWord.children).map(letter => letter.innerText);
+    let index = wordLetters.indexOf("");
+    let temporaryLetters = wordLetters.filter(w => w !== "")
+    if ((event.keyCode >= 65 && event.keyCode <= 90) || event.key === "Backspace" ) {
+      if (event.key === "Backspace") {
+        if (temporaryLetters.length > 0) {
+          let indexLastTypedLetter = temporaryLetters.length - 1
+          emptyWord.children[indexLastTypedLetter].innerText = "";
+        }
+      } else {
+        if (index >= 0) {
+          emptyWord.children[index].innerText = event.key.toUpperCase();
+        }
+      }
+    } else if (event.key === "Enter" && temporaryLetters.length === 5) {
+      let form = document.querySelector("form");
+      let input = document.querySelector("#attempt_words");
+      let existingAttempts = JSON.parse(document.querySelector(".attempt").dataset.attempts);
+      let attempt = Array.from(emptyWord.children).map(letter => letter.innerText).filter(w => w !== "").join('')
+      existingAttempts.push(attempt);
+      input.value = existingAttempts;
+      form.submit()
+    }
+  })
+</script>

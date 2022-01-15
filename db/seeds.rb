@@ -1,7 +1,14 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+puts "------------------"
+puts "------------------"
+puts "------------------"
+puts "Deleting all games"
+Game.destroy_all
+
+puts "------------------"
+puts "------------------"
+puts "------------------"
+puts "Creating all games"
+File.open("words_size_5.txt").read.split("\n").each_with_index do |word, index|
+    Game.create(word: word)
+    puts "created #{index + 1} word(s)"
+end

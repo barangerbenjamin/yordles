@@ -13,16 +13,19 @@
 @import "pages/index";
 
 
-.box {
+.letter {
   height: 50px;
   width: 50px;
   background-color: #3a3a3c;
+  color: white;
+  font-weight: 900;
+  font-size: 30px;
 }
 
 .container {
   min-height: calc(100vh - 70px);
 }
 
-body {
-  background-color: #121213;
-}
+// body {
+//   background-color: #121213;
+// }

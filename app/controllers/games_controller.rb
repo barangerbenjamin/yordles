@@ -1,13 +1,8 @@
 class GamesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :new ]
-
   def show
-    @game = current_user.games.last
-  end
-
-  private
-
-  def generate_word
-
+    @game = Game.find(params[:id])
+    @attempt = Attempt.find_or_create_by(game: @game, user: current_user)
+    empty = 6 - @attempt.words.size
+    @grid = @attempt.words.map(&:chars) + [["", "", "", "", ""]] * empty
   end
 end
