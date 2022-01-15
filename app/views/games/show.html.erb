@@ -3,7 +3,7 @@
     <div class="attempt" id="<%= @attempt.id %>" data-attempts="<%= @attempt.words %>" <%= 'data-finished="true"' if @game_state[:finished] %>>
       <div class="game-state text-center">
         <% if @game_state[:finished] %>
-          <% if @game_state[:sovled] %>
+          <% if @game_state[:solved] %>
             Solved
           <% else %>
             Game Finished
@@ -20,6 +20,11 @@
               <%= letter.upcase %>
             </div>
           <% end %>
+        </div>
+      <% end %>
+      <% if @game_state[:finished] %>
+        <div class="text-center mt-3">
+          <%= link_to "Next Game", game_path(@game.next) %>
         </div>
       <% end %>
     </div>
