@@ -43,24 +43,24 @@
   position: relative;
 }
 
-.word.active.enter::after {
-  content: 'press enter';
-  color: #3a3a3c;
-  font-weight: 900;
-  font-size: 20px;
-  right: -116px;
-  position: absolute;
-  animation: pulse 2s infinite;
-}
+@media only screen and (min-width: 600px) {
+  .word.active.enter::after {
+    content: 'press enter';
+    color: #3a3a3c;
+    font-weight: 900;
+    font-size: 20px;
+    right: -116px;
+    position: absolute;
+  }
 
-.word.active::before {
-  content: '>';
-  color: #3a3a3c;
-  font-weight: 900;
-  font-size: 20px;
-  left: -40px;
-  position: absolute;
-  animation: pulse 2s infinite;
+  .word.active::before {
+    content: '>';
+    color: #3a3a3c;
+    font-weight: 900;
+    font-size: 20px;
+    left: -40px;
+    position: absolute;
+  }
 }
 
 @keyframes pulse {
