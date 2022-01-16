@@ -44,7 +44,7 @@
 }
 
 .popped {
-  animation: pulse 0.5s;
+  animation: pulse 0.3s ease-in;
 }
 
 @media only screen and (min-width: 600px) {
@@ -72,12 +72,8 @@
     transform: scale(1);
   }
 
-  25% {
-    transform: scale(0.90);
-  }
-
   50% {
-    transform: scale(1);
+    transform: scale(0.90);
   }
 
   100% {
