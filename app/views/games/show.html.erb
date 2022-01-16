@@ -27,6 +27,11 @@
           if (enterPrompt) {
             enterPrompt.classList.remove('enter')
           }
+          let poppeds = document.querySelectorAll('.popped')
+          if (poppeds) {
+            poppeds[poppeds.length -1].classList.remove('popped')
+          }
+
           if (temporaryLetters.length > 0) {
             let indexLastTypedLetter = temporaryLetters.length - 1
             emptyWord.children[indexLastTypedLetter].style.backgroundColor = 'grey'
@@ -35,6 +40,7 @@
         } else {
           if (index >= 0) {
             emptyWord.children[index].style.backgroundColor = '#3a3a3c'
+            emptyWord.children[index].classList.add('popped')
             emptyWord.children[index].innerText = event.key.toUpperCase();
           }
         }

@@ -43,6 +43,10 @@
   position: relative;
 }
 
+.popped {
+  animation: pulse 0.5s;
+}
+
 @media only screen and (min-width: 600px) {
   .word.active.enter::after {
     content: 'press enter';
@@ -65,14 +69,18 @@
 
 @keyframes pulse {
   0% {
+    transform: scale(1);
+  }
+
+  25% {
     transform: scale(0.90);
   }
 
-  70% {
+  50% {
     transform: scale(1);
   }
 
   100% {
-    transform: scale(0.90);
+    transform: scale(1);
   }
 }
