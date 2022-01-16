@@ -9,7 +9,7 @@ module ApplicationHelper
     'background-color: grey'
   end
 
-  def acitve_word(attempts, index)
+  def active_word(attempts, index)
     index == attempts.count
   end
 end

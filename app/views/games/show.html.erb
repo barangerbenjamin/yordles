@@ -13,7 +13,7 @@
         <% end %>
       </div>
       <% @grid.each_with_index do |word, index| %>
-        <div class="word d-flex align-items-center justify-content-between <%= word.join.length.zero? ? 'empty' : 'filled' %> <%= 'active' if acitve_word(@attempt.words, index) %>">
+        <div class="word d-flex align-items-center justify-content-between <%= word.join.length.zero? ? 'empty' : 'filled' %> <%= 'active' if active_word(@attempt.words, index) %>">
           <% word.each_with_index do |letter, index| %>
             <div class="letter my-1 mx-1 d-flex align-items-center justify-content-around"
               style="<%= letter_background(letter, index, @game.word) %>">
