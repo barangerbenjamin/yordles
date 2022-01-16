@@ -12,6 +12,12 @@
 @import "components/index";
 @import "pages/index";
 
+.devise-form {
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 32px;
+}
+
 .attempt {
   user-select: none;
 }
