@@ -1,6 +1,7 @@
 <div class="container d-flex flex-column align-items-center justify-content-around">
   <div class="row d-flex align-items-center justify-content-around">
     <%= render "grid" %>
+    <button class="keyboard">SHOW KEYBOARD</button>
   </div>
 </div>
 <div class="d-none">
@@ -55,4 +56,9 @@
       }
     })
   }
+
+  document.querySelector(".keyboard").addEventListener("click", () => {
+    console.log("hi")
+    navigator.virtualKeyboard.show();
+  });
 </script>
