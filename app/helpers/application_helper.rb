@@ -12,4 +12,20 @@ module ApplicationHelper
   def active_word(attempt, index)
     index == attempt.words.count && !attempt.finished
   end
+
+  def keyboard_letter_background(letter, attempted_words, solution_word)
+    color = '#d3d6da'
+
+    color = 'grey' if attempted_words.join.include?(letter)
+
+    # if attempted_words.join.include?(letter)
+    #   attempted_words.each do |word|
+    #     word.chars.each do |char|
+    #       color = solution_word.include?(char) ? '#ffe156' : color
+    #     end
+    #   end
+    # end
+
+    return "background-color: #{color}; #{'color: white;' if color == 'grey'}"
+  end
 end

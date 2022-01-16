@@ -1,3 +1,7 @@
 var parent = document.querySelector(".attempt").parentNode;
 document.querySelector(".attempt").remove()
 parent.insertAdjacentHTML("beforeend", "<%= j render 'games/grid' %>");
+
+var keyboard = document.querySelector("#keyboard").parentNode;
+document.querySelector("#keyboard").remove()
+keyboard.insertAdjacentHTML("beforeend", "<%= j render 'games/keyboard' %>");

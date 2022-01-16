@@ -14,5 +14,6 @@ class AttemptsController < ApplicationController
       end
       @grid = populate_grid(@attempt)
       @game =  @attempt.game
+      @keyboard = keyboard
     end
   end

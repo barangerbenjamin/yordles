@@ -1,0 +1,15 @@
+<div id="keyboard">
+  <% @keyboard.each do |k, row| %>
+    <div class="keyboard-row">
+      <% if k == :row_two %>
+        <div class="spacer half"></div>
+      <% end %>
+      <% row.each do |key, letter| %>
+        <button class="keyboard-btn" data-key="<%= letter %>" style="<%= keyboard_letter_background(letter.upcase, @attempt.words, @game.word) %>"><%= letter %></button>
+      <% end %>
+      <% if k == :row_two %>
+        <div class="spacer half"></div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
