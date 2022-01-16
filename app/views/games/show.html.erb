@@ -1,9 +1,51 @@
 <div class="container d-flex flex-column align-items-center justify-content-around">
-  <div class="row d-flex align-items-center justify-content-around" tabindex='-1'>
+  <div class="row d-flex align-items-center justify-content-around">
     <%= render "grid" %>
-    <button class="keyboard">SHOW KEYBOARD</button>
   </div>
 </div>
+<div id="keyboard">
+  <div class="keyboard-row">
+    <button class="keyboard-btn" data-key="q">q</button>
+    <button class="keyboard-btn" data-key="w">w</button>
+    <button class="keyboard-btn" data-key="e">e</button>
+    <button class="keyboard-btn" data-key="r">r</button>
+    <button class="keyboard-btn" data-key="t">t</button>
+    <button class="keyboard-btn" data-key="y">y</button>
+    <button class="keyboard-btn" data-key="u">u</button>
+    <button class="keyboard-btn" data-key="i">i</button>
+    <button class="keyboard-btn" data-key="o">o</button>
+    <button class="keyboard-btn" data-key="p">p</button>
+  </div>
+  <div class="keyboard-row">
+    <div class="spacer half">
+    </div>
+    <button class="keyboard-btn" data-key="a">a</button>
+    <button class="keyboard-btn" data-key="s">s</button>
+    <button class="keyboard-btn" data-key="d">d</button>
+    <button class="keyboard-btn" data-key="f">f</button>
+    <button class="keyboard-btn" data-key="g">g</button>
+    <button class="keyboard-btn" data-key="h">h</button>
+    <button class="keyboard-btn" data-key="j">j</button>
+    <button class="keyboard-btn" data-key="k">k</button>
+    <button class="keyboard-btn" data-key="l">l</button>
+    <div class="spacer half">
+    </div>
+  </div>
+  <div class="keyboard-row">
+    <button class="keyboard-btn" data-key="↵" class="one-and-a-half">enter</button>
+    <button class="keyboard-btn" data-key="z">z</button>
+    <button class="keyboard-btn" data-key="x">x</button>
+    <button class="keyboard-btn" data-key="c">c</button>
+    <button class="keyboard-btn" data-key="v">v</button>
+    <button class="keyboard-btn" data-key="b">b</button>
+    <button class="keyboard-btn" data-key="n">n</button>
+    <button class="keyboard-btn" data-key="m">m</button>
+    <button class="keyboard-btn" data-key="←" class="one-and-a-half"><game-icon icon="backspace">
+  </game-icon>
+  </button>
+  </div>
+</div>
+
 <div class="d-none">
   <%= simple_form_for @attempt, authenticity_token: true, html: { remote: true } do |f| %>
     <%= f.input :words, as: :hidden %>
@@ -12,51 +54,70 @@
 </div>
 
 <script>
-  if(!document.querySelector(".attempt").dataset.finished) {
-    document.addEventListener("keyup", (event) => {
-      let emptyWord = document.querySelector(".empty");
-      let wordLetters = Array.from(emptyWord.children).map(letter => letter.innerText);
-      let index = wordLetters.indexOf("");
-      let temporaryLetters = wordLetters.filter(w => w !== "")
-      if (temporaryLetters.length === 4) {
-        document.querySelector(".word.active").classList.add('enter')
-      }
+  const someFunction = function (keyEvent){
+    console.log(keyEvent.keyCode)
+    let emptyWord = document.querySelector(".empty");
+    let wordLetters = Array.from(emptyWord.children).map(letter => letter.innerText);
+    let index = wordLetters.indexOf("");
+    let temporaryLetters = wordLetters.filter(w => w !== "")
+    if (temporaryLetters.length === 4) {
+      document.querySelector(".word.active").classList.add('enter')
+    }
 
-      if ((event.keyCode >= 65 && event.keyCode <= 90) || event.key === "Backspace" ) {
-        if (event.key === "Backspace") {
-          let enterPrompt = document.querySelector(".word.active.enter")
-          if (enterPrompt) {
-            enterPrompt.classList.remove('enter')
-          }
-          let poppeds = document.querySelectorAll('.popped')
-          if (poppeds) {
-            poppeds[poppeds.length -1].classList.remove('popped')
-          }
-
-          if (temporaryLetters.length > 0) {
-            let indexLastTypedLetter = temporaryLetters.length - 1
-            emptyWord.children[indexLastTypedLetter].style.backgroundColor = 'grey'
-            emptyWord.children[indexLastTypedLetter].innerText = "";
-          }
-        } else {
-          if (index >= 0) {
-            emptyWord.children[index].style.backgroundColor = '#3a3a3c'
-            emptyWord.children[index].classList.add('popped')
-            emptyWord.children[index].innerText = event.key.toUpperCase();
-          }
+    if ((keyEvent.keyCode >= 65 && keyEvent.keyCode <= 90) || keyEvent.key === "Backspace" ) {
+      if (keyEvent.key === "Backspace") {
+        let enterPrompt = document.querySelector(".word.active.enter")
+        if (enterPrompt) {
+          enterPrompt.classList.remove('enter')
         }
-      } else if (event.key === "Enter" && temporaryLetters.length === 5) {
-        let form = document.querySelector("form");
-        let input = document.querySelector("#attempt_words");
-        let existingAttempts = JSON.parse(document.querySelector(".attempt").dataset.attempts);
-        let attempt = Array.from(emptyWord.children).map(letter => letter.innerText).filter(w => w !== "").join('')
-        existingAttempts.push(attempt);
-        input.value = existingAttempts;
-        document.querySelector(".form-submit").click();
+        let poppeds = document.querySelectorAll('.popped')
+        if (poppeds.length > 1) {
+          poppeds[poppeds.length -1].classList.remove('popped')
+        }
+
+        if (temporaryLetters.length > 0) {
+          let indexLastTypedLetter = temporaryLetters.length - 1
+          emptyWord.children[indexLastTypedLetter].style.backgroundColor = 'grey'
+          emptyWord.children[indexLastTypedLetter].innerText = "";
+        }
+      } else {
+        if (index >= 0) {
+          emptyWord.children[index].style.backgroundColor = '#3a3a3c'
+          emptyWord.children[index].classList.add('popped')
+          emptyWord.children[index].innerText = keyEvent.key.toUpperCase();
+        }
       }
+    } else if (keyEvent.key === "Enter" && temporaryLetters.length === 5) {
+      let form = document.querySelector("form");
+      let input = document.querySelector("#attempt_words");
+      let existingAttempts = JSON.parse(document.querySelector(".attempt").dataset.attempts);
+      let attempt = Array.from(emptyWord.children).map(letter => letter.innerText).filter(w => w !== "").join('')
+      existingAttempts.push(attempt);
+      input.value = existingAttempts;
+      document.querySelector(".form-submit").click();
+    }
+  }
+
+  document.querySelectorAll(".keyboard-btn").forEach(button => {
+    button.addEventListener("click", (event) => {
+      let keyHash = {
+        'keyCode': button.dataset.key.toUpperCase().charCodeAt(0),
+        'key': button.dataset.key.toUpperCase()
+      }
+
+      if (button.dataset.key === '←') {
+        keyHash = { 'keyCode': 8, 'key': 'Backspace' }
+      } else if (button.dataset.key === '↵') {
+        keyHash = { 'keyCode': 13, 'key': 'Enter' }
+      }
+
+      document.dispatchEvent(new KeyboardEvent('keydown', keyHash));
+    })
+  })
+
+  if(!document.querySelector(".attempt").dataset.finished) {
+    document.addEventListener("keydown", (event) => {
+      someFunction(event)
     })
   }
-  document.querySelector(".keyboard").addEventListener("click", () => {
-    document.querySelector(".row").focus();
-  });
 </script>
