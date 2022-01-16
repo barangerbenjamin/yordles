@@ -8,7 +8,7 @@ class AttemptsController < ApplicationController
         solved: @attempt.words.include?(@attempt.game.word)
       }
       if @attempt.words.size == 5 || @attempt.game.word.downcase == words.last.downcase
-        @attempt.update({ words: words }.merge(game_check).merge(points: 100 - @attempt.words.size * 20))
+        @attempt.update({ words: words }.merge(game_check).merge(points: 120 - @attempt.words.size * 20))
       else
         @attempt.update({ words: words }.merge(game_check))
       end
