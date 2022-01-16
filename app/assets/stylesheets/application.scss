@@ -38,6 +38,35 @@
   border-radius: 3px;
   margin: 4px;
 }
-// body {
-//   background-color: #121213;
-// }
+
+.attempt {
+  position: relative;
+}
+
+.word.active.enter::after {
+  content: 'press enter';
+  right: -116px;
+  position: absolute;
+  animation: pulse 2s infinite;
+}
+
+.word.active::before {
+  content: '>';
+  left: -40px;
+  position: absolute;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.90);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.90);
+  }
+}

@@ -6,10 +6,5 @@ class GamesController < ApplicationController
     @grid = @attempt.words.map(&:chars) + [["", "", "", "", ""]] * empty
 
     flash[:notice] = "You earned #{@attempt.points} points!" if @attempt.finished
-
-    @game_state = {
-      finished: @attempt.finished,
-      solved: @attempt.solved
-    }
   end
 end
