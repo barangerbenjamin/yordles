@@ -12,7 +12,7 @@ class AttemptsController < ApplicationController
       else
         @attempt.update({ words: words }.merge(game_check))
       end
-
-      redirect_to game_path(@attempt.game)
+      @grid = populate_grid(@attempt)
+      @game =  @attempt.game
     end
   end

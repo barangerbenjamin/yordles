@@ -1,0 +1,3 @@
+var parent = document.querySelector(".attempt").parentNode;
+document.querySelector(".attempt").remove()
+parent.insertAdjacentHTML("beforeend", "<%= j render 'games/grid' %>");

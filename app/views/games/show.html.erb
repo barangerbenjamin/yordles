@@ -1,38 +1,12 @@
 <div class="container d-flex flex-column align-items-center justify-content-around">
   <div class="row d-flex align-items-center justify-content-around">
-    <div class="attempt" id="<%= @attempt.id %>" data-attempts="<%= @attempt.words %>" <%= 'data-finished="true"' if @attempt.finished %>>
-      <div class="game-state text-center">
-        <% if @attempt.finished %>
-          <% if @attempt.solved %>
-            Solved
-          <% else %>
-            Game Finished
-          <% end %>
-        <% else %>
-          Guess the word
-        <% end %>
-      </div>
-      <% @grid.each_with_index do |word, index| %>
-        <div class="word d-flex align-items-center justify-content-between <%= word.join.length.zero? ? 'empty' : 'filled' %> <%= 'active' if active_word(@attempt.words, index) %>">
-          <% word.each_with_index do |letter, index| %>
-            <div class="letter my-1 mx-1 d-flex align-items-center justify-content-around"
-              style="<%= letter_background(letter, index, @game.word) %>">
-              <%= letter.upcase %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-      <% if @attempt.finished %>
-        <div class="text-center mt-3">
-          <%= link_to "Next Game", game_path(@game.next) %>
-        </div>
-      <% end %>
-    </div>
+    <%= render "grid" %>
   </div>
 </div>
 <div class="d-none">
-  <%= simple_form_for @attempt do |f| %>
+  <%= simple_form_for @attempt, authenticity_token: true, html: { remote: true } do |f| %>
     <%= f.input :words, as: :hidden %>
+    <%= f.submit class: "form-submit" %>
   <% end %>
 </div>
 
@@ -71,7 +45,7 @@
         let attempt = Array.from(emptyWord.children).map(letter => letter.innerText).filter(w => w !== "").join('')
         existingAttempts.push(attempt);
         input.value = existingAttempts;
-        form.submit()
+        document.querySelector(".form-submit").click();
       }
     })
   }
