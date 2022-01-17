@@ -53,7 +53,10 @@ document.addEventListener('turbolinks:load', () => {
       } else {
         if (index >= 0) {
           let keyboardKey = document.querySelector(`.keyboard-btn.${keyEvent.key.toLowerCase()}`)
-          keyboardKey.classList.add('popped')
+          keyboardKey.classList.add('keyboard-popped')
+          setTimeout(() => {
+            keyboardKey.classList.remove('keyboard-popped') // allow to retrigger animation if keyboard tile clicked multiple times
+          }, 300);
           emptyWord.children[index].style.backgroundColor = '#3a3a3c'
           emptyWord.children[index].classList.add('popped')
           emptyWord.children[index].innerText = keyEvent.key.toUpperCase();
@@ -72,6 +75,7 @@ document.addEventListener('turbolinks:load', () => {
 
   document.querySelectorAll(".keyboard-btn").forEach(button => {
     button.addEventListener("click", (event) => {
+      console.log(button)
       let keyHash = {
         'keyCode': button.dataset.key.toUpperCase().charCodeAt(0),
         'key': button.dataset.key.toUpperCase()

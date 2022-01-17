@@ -60,6 +60,10 @@
   }
 }
 
+.keyboard-popped {
+  animation: pulse 0.3s ease-in;
+}
+
 .keyboard-row {
 
   display: flex;
