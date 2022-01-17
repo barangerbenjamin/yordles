@@ -1,5 +1,13 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
+
+  def current_user
+    super || guest_user
+  end
+
+  def user_signed_in?
+    !current_user.guest
+  end
 
   def populate_grid(attempt)
     empty = 6 - attempt.words.size
@@ -44,5 +52,13 @@ class ApplicationController < ActionController::Base
         backspace: '←'
       }
     }
+  end
+
+  private
+
+  def transfer_guest_to_user
+    if current_user.attempts
+      guest_user.attempts.update_all(user_id: current_user.id)
+    end
   end
 end
