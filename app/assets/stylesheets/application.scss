@@ -26,6 +26,10 @@
   flex: 0.5;
 }
 
+.container {
+  min-height: calc(100vh - 70px);
+}
+
 .letter {
   height: 56px;
   width: 56px;
@@ -72,6 +76,7 @@
 }
 
 #keyboard {
+  min-width: 100%;
   margin: 0 8px;
   user-select: none;
 }
