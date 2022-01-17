@@ -5,3 +5,20 @@ parent.insertAdjacentHTML("beforeend", "<%= j render 'games/grid' %>");
 var keyboard = document.querySelector("#keyboard").parentNode;
 document.querySelector("#keyboard").remove()
 keyboard.insertAdjacentHTML("beforeend", "<%= j render 'games/keyboard' %>");
+
+document.querySelectorAll(".keyboard-btn").forEach(button => {
+  button.addEventListener("click", (event) => {
+    let keyHash = {
+      'keyCode': button.dataset.key.toUpperCase().charCodeAt(0),
+      'key': button.dataset.key.toUpperCase()
+    }
+
+    if (button.dataset.key === '←') {
+      keyHash = { 'keyCode': 8, 'key': 'Backspace' }
+    } else if (button.dataset.key === '↵') {
+      keyHash = { 'keyCode': 13, 'key': 'Enter' }
+    }
+
+    document.dispatchEvent(new KeyboardEvent('keydown', keyHash));
+  });
+});

@@ -73,23 +73,26 @@ document.addEventListener('turbolinks:load', () => {
     }
   }
 
-  document.querySelectorAll(".keyboard-btn").forEach(button => {
-    button.addEventListener("click", (event) => {
-      console.log(button)
-      let keyHash = {
-        'keyCode': button.dataset.key.toUpperCase().charCodeAt(0),
-        'key': button.dataset.key.toUpperCase()
-      }
-
-      if (button.dataset.key === '←') {
-        keyHash = { 'keyCode': 8, 'key': 'Backspace' }
-      } else if (button.dataset.key === '↵') {
-        keyHash = { 'keyCode': 13, 'key': 'Enter' }
-      }
-
-      document.dispatchEvent(new KeyboardEvent('keydown', keyHash));
-    })
-  })
+  let keyboardListener = () => {
+    document.querySelectorAll(".keyboard-btn").forEach(button => {
+      button.addEventListener("click", (event) => {
+        let keyHash = {
+          'keyCode': button.dataset.key.toUpperCase().charCodeAt(0),
+          'key': button.dataset.key.toUpperCase()
+        }
+  
+        if (button.dataset.key === '←') {
+          keyHash = { 'keyCode': 8, 'key': 'Backspace' }
+        } else if (button.dataset.key === '↵') {
+          keyHash = { 'keyCode': 13, 'key': 'Enter' }
+        }
+  
+        document.dispatchEvent(new KeyboardEvent('keydown', keyHash));
+      });
+    });
+  }
+  keyboardListener();
+  
 
   if(!document.querySelector(".attempt").dataset.finished) {
     document.addEventListener("keydown", (event) => {
