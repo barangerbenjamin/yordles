@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
         g: 'g',
         h: 'h',
         j: 'j',
+        k: 'k',
         l: 'l'
       },
       row_three: {

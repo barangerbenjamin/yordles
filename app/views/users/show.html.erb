@@ -1,0 +1,27 @@
+<div class="container mt-2 mb-5 d-flex flex-column align-items-center justify-content-around">
+  <div class="profile">
+    <div class="btn btn-primary">
+      <%= @user.email%>
+    </div>
+    <div class="btn btn-success">
+      <%= @user.attempts.pluck(:points).sum %> Points
+    </div>
+    <div class="btn btn-warning">
+      <%= @user.attempts.count %> Games
+    </div>
+    <div class="btn btn-danger">
+      <%= @user.attempts.pluck(:solved).count(true) %> solved
+    </div>
+  </div>
+</div>
+
+<style>
+  .profile {
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+  }
+  .profile > .btn {
+    margin: 4px;
+  }
+</style>
