@@ -27,8 +27,8 @@
 }
 
 .letter {
-  height: 64px;
-  width: 64px;
+  height: 56px;
+  width: 56px;
   background-color: #3a3a3c;
   color: white;
   font-weight: 900;
@@ -54,9 +54,14 @@
 
 .popped {
   animation: pulse 0.3s ease-in;
+  &.keyboard-btn {
+    color: white;
+    background-color: #3a3a3c !important;
+  }
 }
 
 .keyboard-row {
+
   display: flex;
   width: 100%;
   margin: 0 auto 8px;
@@ -68,6 +73,10 @@
 }
 
 @media only screen and (min-width: 600px) {
+  #keyboard {
+    margin: 0 220px;
+    user-select: none;
+  }
   .word.active.enter::after {
     content: 'press enter';
     color: #3a3a3c;
