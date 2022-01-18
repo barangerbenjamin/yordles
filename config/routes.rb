@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'games#show', id: 1
+  root to: 'pages#home'
   resources :users, only: :show
   resources :games, only: :show
   resources :attempts, only: :update
