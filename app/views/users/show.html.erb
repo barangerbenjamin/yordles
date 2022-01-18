@@ -1,27 +1,95 @@
-<div class="container mt-2 mb-5 d-flex flex-column align-items-center justify-content-around">
-  <div class="profile">
-    <div class="btn btn-primary">
-      <%= @user.email%>
-    </div>
-    <div class="btn btn-success">
-      <%= @user.attempts.pluck(:points).sum %> Points
-    </div>
-    <div class="btn btn-warning">
-      <%= @user.attempts.count %> Games
-    </div>
-    <div class="btn btn-danger">
-      <%= @user.attempts.pluck(:solved).count(true) %> solved
+<div class="container profile mt-2 mb-5 d-flex flex-column align-items-center justify-content-around">
+  <div class="row d-flex align-items-center justify-content-around">
+    <div class="profile">
+      <div class="email">
+        <%= @user.guest ? @user.email.split('@').first.capitalize : @user.email.capitalize %>
+      </div>
+      <div class="points">
+        <%= @user.attempts.pluck(:points).sum %> Points
+      </div>
+      <div class="games">
+        <%= @user.attempts.count %> Games
+      </div>
+      <div class="solved">
+        <%= @user.attempts.pluck(:solved).count(true) %> solved
+      </div>
+      <% if @unsolved.present? %>
+        <div class="unsolved">
+          <div class="unsolved-prompt">
+            You have unsolved Yordles!
+          </div>
+          <% @unsolved.each do |attempt| %>
+            <%= link_to game_path(attempt.game) do %>
+              <div class="word profile d-flex">
+                <% attempt.words.last.chars.each_with_index do |letter, index| %>
+                  <div class="letter mini my-1 mx-1 d-flex align-items-center justify-content-around"
+                    style="<%= letter_background(letter, index, attempt.game.word) %>">
+                    <%= letter.upcase %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
 
 <style>
-  .profile {
-    height: calc(100vh - 100px);
-    display: flex;
-    flex-direction: column;
-  }
-  .profile > .btn {
+  .points,
+  .games,
+  .solved,
+  .unsolved-prompt {
     margin: 4px;
+    height: 48px;
+    background-color: #6aaa64;
+    color: white;
+    font-weight: 900;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 48px;
+    text-align: center;
+  }
+
+  .unsolved-prompt {
+    margin-bottom: 0;
+  }
+
+  .letter.mini {
+    height: 56px;
+    width: 56px;
+    font-size: 20px;
+  }
+
+  .profile.word {
+    position: relative;
+  }
+
+  .profile.word::before {
+    position: absolute;
+    content: '👉';
+    left: -40px;
+    top: 14px;
+    font-size: 24px;
+  }
+
+  .email {
+    font-size: 1.2rem;
+    word-break: break-all;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+    background-color: #3a3a3c;
+    color: white;
+    font-weight: 900;
+    border-radius: 3px;
+    width: 312px;
+    margin: 4px;
+    padding: 4px;
+  }
+
+  .profile a {
+    text-decoration: none;
   }
 </style>
