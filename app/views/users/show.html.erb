@@ -2,7 +2,7 @@
   <div class="row d-flex align-items-center justify-content-around">
     <div class="profile">
       <div class="email">
-        <%= @user.guest ? @user.email.split('@').first.capitalize : @user.email.capitalize %>
+        <%= @user.guest ? "Guest User #{@user.id}" : @user.email %>
       </div>
       <div class="points">
         <%= @user.attempts.pluck(:points).sum %> Points

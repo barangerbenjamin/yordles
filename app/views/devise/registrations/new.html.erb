@@ -1,3 +1,9 @@
+
+<div class="col-sm-4 offset-sm-4 mt-5 devise-form">
+  <%- if controller_name != 'sessions' %>
+    <%= link_to "Already have an account? Log in", new_session_path(resource_name) %><br />
+  <% end %>
+</div>
 <div class="col-sm-4 offset-sm-4 mt-5 devise-form">
   <h2>Sign up</h2>
 
